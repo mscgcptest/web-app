@@ -1,0 +1,50 @@
+import React, { useState } from 'react';
+import './App.css';
+
+function App() {
+  const [showTrailer, setShowTrailer] = useState(false);
+
+  const handleCodeSubscript = async () => {
+    try {
+      const response = await fetch('/api/codesubscript');
+      const data = await response.json();
+      alert(data.message);
+    } catch (error) {
+      alert('Failed to fetch from backend');
+      console.error(error);
+    }
+  };
+
+  return (
+    <div className="banner">
+      <div className="content">
+        <h1 className="title">The Batman</h1>
+        <p className="description">
+          In his second year of fighting crime, Batman uncovers corruption in Gotham City.
+        </p>
+        <div className="buttons">
+          <button className="btn" onClick={() => setShowTrailer(true)}>▶ Play</button>
+          <button className="btn">+ My List</button>
+          <button className="btn" onClick={handleCodeSubscript}>💻 Code Subscript</button>
+        </div>
+      </div>
+
+      {showTrailer && (
+        <div className="video-container">
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/mqqft2x_Aa4?autoplay=1"
+            title="The Batman Trailer"
+            frameBorder="0"
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+          ></iframe>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default App;
+
